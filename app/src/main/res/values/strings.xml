@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Lab_1_2_studentName_studentId_Android</string>
+    <string name="add_a_new_product">Add a new Product</string>
+    <string name="enter_product_name">Enter product name</string>
+    <string name="description">Description:</string>
+    <string name="enter_product_description">Enter product description</string>
+    <string name="add_product">Add Product</string>
+    <string name="enter_product_price">Enter product price</string>
+    <string name="view_products">Display Products</string>
+    <string name="enter_product_provider_latitude">Enter product provider Latitude</string>
+    <string name="enter_product_provider_longitude">Enter product provider longitude</string>
+    <string name="Edit_Products">Update a Product</string>
+    <string name="count_products">Number of Products</string>
+    <string name="count">000</string>
+</resources>
