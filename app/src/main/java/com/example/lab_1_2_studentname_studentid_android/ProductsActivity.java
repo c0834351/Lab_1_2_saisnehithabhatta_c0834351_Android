@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +35,29 @@ public class ProductsActivity extends AppCompatActivity {
 
     }
 
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu,menu);
+//        MenuItem menuItem = menu.findItem(R.id.search_action);
+//        SearchView searchView = (SearchView) menuItem.getActionView();
+//        searchView.setQueryHint("Type here to search");
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String s) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String s) {
+//                return false;
+//            }
+//        });
+//        return super.onCreateOptionsMenu(menu);
+//    }
+
     long count = 0;
     private void displayListOfProducts() {
         Cursor cursor = databaseHelper.getAllProducts();
-//        productList.add(new Products(1,"sunscreen", "brand", 33.2,32.3,43.4));
-//        productList.add(new Products(2,"moisturiser", "brand", 33.2,32.3,43.4));
         databaseHelper.addProduct("sunscreen", "brand", 33.2,32.3,43.4 );
         databaseHelper.addProduct("moisturiser", "brand", 33.2,32.3,43.4);
         databaseHelper.addProduct("soaps", "brand", 33.2,32.3,43.4 );

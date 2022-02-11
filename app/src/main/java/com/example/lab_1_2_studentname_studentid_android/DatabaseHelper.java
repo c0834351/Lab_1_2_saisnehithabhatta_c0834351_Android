@@ -59,13 +59,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return sqLiteDatabase.insert(TABLE_NAME, null, contentValues) != -1;
     }
 
-    //select first product
-    public Cursor getFirstProduct() {
-        // we need a readable instance of database
-        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        return sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null);
-    }
-
     //select all products
     public Cursor getAllProducts() {
         // we need a readable instance of database
@@ -100,6 +93,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new String[]{String.valueOf(id)}) > 0;
     }
 
+    //search names
+    public String searchName(){
+        String sql = "SELECT "+COLUMN_NAME+" FROM "+TABLE_NAME;
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.rawQuery(sql, null);
+        return "";
+    }
+
     // number of products in database
     public long productsCount() {
         String sql = "SELECT "+COLUMN_NAME+" FROM "+TABLE_NAME;
@@ -111,6 +112,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return totalProducts;
     }
+
+    public long productsLatitude() {
+        String sql = "SELECT "+COLUMN_LATITUDE+" FROM "+TABLE_NAME+" WHERE "+COLUMN_ID;
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.rawQuery(sql, null);
+        cursor.moveToFirst();
+        long totalProducts = cursor.getCount();
+        cursor.close();
+
+        return totalProducts;
+    }
+
 
 
 }

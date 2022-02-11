@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ProductsActivity">
 
+
     <ListView
         android:id="@+id/lv_products"
         android:layout_width="match_parent"

@@ -1,16 +1,38 @@
 package com.example.lab_1_2_studentname_studentid_android;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+import com.google.android.gms.location.FusedLocationProviderApi;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    //location
 
 
     //SQLITE database helper
@@ -19,9 +41,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     EditText etProductName, etProductPrice, etProductDesc, etProductLatitude, etProductLongitude;
     TextView tvDisplayProducts;
-    Button addProductsBtn, countBtn;
+            //tvAddress;
+    Button addProductsBtn, countBtn, locationBtn;
     TextView count;
 
+    FusedLocationProviderClient fusedLocationProviderClient;
 
 
     @Override
@@ -29,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //tvAddress = findViewById(R.id.addressText);
+        locationBtn = findViewById(R.id.location_button);
         countBtn = findViewById(R.id.btn_products_count);
         count = findViewById(R.id.count);
         etProductName = findViewById(R.id.et_productName);
@@ -39,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tvDisplayProducts = findViewById(R.id.tv_display_products);
         addProductsBtn = findViewById(R.id.btn_add_product);
 
+        findViewById(R.id.location_button).setOnClickListener(this);
         findViewById(R.id.btn_add_product).setOnClickListener(this);
         findViewById(R.id.tv_display_products).setOnClickListener(this);
         findViewById(R.id.btn_products_count).setOnClickListener(this);
@@ -46,24 +73,69 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //initializing the dbHelper
         databaseHelper = new DatabaseHelper(this);
 
+        //initialize fusedLocation
+//        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+//
+//        locationBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //check permission
+//                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//                    getLocation();
+//                } else {
+//                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+//                }
+//            }
+//        });
+
     }
+
+//    public void getLocation() {
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            return;
+//        }
+//        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Location> task) {
+//                Location location = task.getResult();
+//                if (location != null) {
+//                    try {
+//                        Geocoder geocoder = new Geocoder(MainActivity.this, Locale.getDefault());
+//                        List<Address> address = geocoder.getFromLocation(
+//                                location.getLatitude(), location.getLongitude(), 1
+//                        );
+//                        tvAddress.setText("Latitude: " + address.get(0).getLatitude() + " Longitude: " + address.get(0).getLongitude() + " Country Name: " + address.get(0).getCountryName());
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                }
+//            }
+//        });
+//
+//    }
+
 
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_add_product:
-               // addProducts();
+                addProducts();
                 break;
             case R.id.tv_display_products:
                 Intent intent = new Intent(this, ProductsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_products_count:
-//                long i =  databaseHelper.productsCount();
-//                count.setText(String.valueOf(i));
-//                Toast.makeText(this, "number of count", Toast.LENGTH_SHORT).show();
+                long i =  databaseHelper.productsCount();
+                count.setText(String.valueOf(i));
+                Toast.makeText(this, "number of count", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.location_button:
+                 intent = new Intent(this, MapsActivity.class);
+                 startActivity(intent);
+
         }
     }
 

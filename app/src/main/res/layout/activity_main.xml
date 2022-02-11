@@ -101,6 +101,31 @@
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold" />
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/teal_700"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:paddingHorizontal="5dp"-->
+<!--            android:text="@string/userLocation" />-->
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/addressText"-->
+<!--            android:text="User address"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="19sp" />-->
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/location_button"
+            android:layout_marginTop="15dp"
+            android:text="Get current location"
+            android:textAllCaps="false"
+            android:textSize="19sp"/>
+
+
+
 
 
 
